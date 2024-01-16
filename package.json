@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@monaco-editor/react": "^4.6.0",
     "@prisma/client": "^5.8.1",
     "delay": "^6.0.0",
     "markdown-preview": "^1.0.1",

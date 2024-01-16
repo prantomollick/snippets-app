@@ -13,7 +13,16 @@ export default async function Home() {
       key={snippet.id}
       className="flex justify-between items-center p-2 border rounded-md"
     >
-      <h3 className="text-1xl font-medium text-indigo-700">{snippet.title}</h3>
+      <h3 className="text-1xl font-medium text-indigo-700">
+        {snippet.title}
+        <small className="text-xs font-light text-gray-400 ml-1 align-text-top">
+          {snippet.createdAt.toLocaleDateString("en-US", {
+            year: "numeric",
+            month: "long",
+            day: "numeric"
+          })}
+        </small>
+      </h3>
       <Link href={`/snippets/${snippet.id}`}>View</Link>
     </div>
   ));
