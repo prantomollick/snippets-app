@@ -1,4 +1,5 @@
 import prisma from "@/db/db";
+import delay from "delay";
 import { notFound } from "next/navigation";
 
 interface Props {
@@ -8,7 +9,7 @@ interface Props {
 }
 async function SnippetDetailspage({ params }: Props) {
   // const snippetId: number = parseInt(params.id!);
-
+  await delay(1000);
   const snippet = await prisma.snippet.findUnique({
     where: {
       id: parseInt(params.id)
@@ -19,7 +20,14 @@ async function SnippetDetailspage({ params }: Props) {
 
   console.log(snippet);
 
-  return <div>SnippetDetailspage</div>;
+  return (
+    <div>
+      <h2>{snippet.title}</h2>
+      <pre>
+        <code>{snippet.code}</code>
+      </pre>
+    </div>
+  );
 }
 
 export default SnippetDetailspage;

@@ -10,11 +10,13 @@
   },
   "dependencies": {
     "@prisma/client": "^5.8.1",
+    "delay": "^6.0.0",
     "markdown-preview": "^1.0.1",
     "next": "14.0.4",
     "prisma": "^5.8.1",
     "react": "^18",
-    "react-dom": "^18"
+    "react-dom": "^18",
+    "react-loading-skeleton": "^3.3.1"
   },
   "devDependencies": {
     "@types/node": "^20",
