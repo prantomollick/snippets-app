@@ -1,4 +1,4 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Snippet App
 
 ## Getting Started
 
@@ -16,21 +16,40 @@ bun dev
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Prisma ORM Setup
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+This project is using `@prisma/cli` version 2 which has been released as
 
-## Learn More
+> install prisma
 
-To learn more about Next.js, take a look at the following resources:
+```bash
+npm i prisma
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+> Prisma ORM initilize with datasource provider SQlite
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+```bash
+npx prisma init --datasource-provider sqlite
+```
 
-## Deploy on Vercel
+> Model design for snippet apps code snippet below
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```bash
+model Snippet {
+  id        Int      @id @default(autoincrement())
+  title     String
+  code      String
+  createdAt DateTime @default(now())
+  updateAt  DateTime @updatedAt
+}
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+> Prisma ORM database migration command
+> npx generate command Create bridge between your database and your application, enabling you to interact with the database using a type-safe and declarative syntax.
+> Provide a migrate name < Add snippets > then it will generate migration name according to this: < randomId >\_add_snippets automatically.
+
+```bash
+npx prisma format
+npx prisma generate
+npx prisma migrate dev
+```
