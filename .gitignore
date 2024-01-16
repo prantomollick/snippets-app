@@ -58,3 +58,4 @@ experimental/**/*.db
 .nuxt
 dev.db
 *.env*
+data-grip

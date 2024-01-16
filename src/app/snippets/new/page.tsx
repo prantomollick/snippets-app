@@ -1,6 +1,7 @@
 import { redirect } from "next/navigation";
 import prisma from "@/db/db";
 import React from "react";
+import { seed } from "@/db/seeder";
 
 function SnippetCreatePage() {
   const createSnippet = async (formData: FormData) => {
@@ -18,7 +19,6 @@ function SnippetCreatePage() {
         code
       }
     });
-
     console.log(snippet);
 
     //Redirect the user back to the root route
