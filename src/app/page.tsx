@@ -1,5 +1,5 @@
 import prisma from "@/db/db";
-import { Snippet } from "next/font/google";
+import Link from "next/link";
 
 export default async function Home() {
   const snippets = await prisma.snippet.findMany({
@@ -9,15 +9,24 @@ export default async function Home() {
   });
 
   const renderedSnippets = snippets.map((snippet) => (
-    <div key={snippet.id}>
-      <h2 className="text-1xl font-semibold text-indigo-700 mb-1">
-        {snippet.title}
-      </h2>
-      <div className="bg-gray-900 p-6 rounded-lg shadow-lg">
-        <code className="text-white font-mono">{snippet.code}</code>
-      </div>
+    <div
+      key={snippet.id}
+      className="flex justify-between items-center p-2 border rounded-md"
+    >
+      <h3 className="text-1xl font-medium text-indigo-700">{snippet.title}</h3>
+      <Link href={`/snippets/${snippet.id}`}>View</Link>
     </div>
   ));
 
-  return <div className="flex flex-col gap-4">{renderedSnippets}</div>;
+  return (
+    <div>
+      <div className="flex m-2 justify-between items-center">
+        <h2 className="text-xl font-bold">Snippets</h2>
+        <Link href="/snippets/new" className="border p-2 rounded">
+          New
+        </Link>
+      </div>
+      <div className="flex flex-col gap-2">{renderedSnippets}</div>
+    </div>
+  );
 }

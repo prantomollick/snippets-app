@@ -23,9 +23,9 @@ async function SnippetDetailspage({ params }: Props) {
   return (
     <div>
       <h2>{snippet.title}</h2>
-      <pre>
-        <code>{snippet.code}</code>
-      </pre>
+      <div className="bg-gray-900 p-6 rounded-lg shadow-lg">
+        <code className="text-white font-mono">{snippet.code}</code>
+      </div>
     </div>
   );
 }
