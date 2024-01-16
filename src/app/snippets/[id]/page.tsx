@@ -1,5 +1,6 @@
 import prisma from "@/db/db";
 import delay from "delay";
+import Link from "next/link";
 import { notFound } from "next/navigation";
 
 interface Props {
@@ -22,9 +23,22 @@ async function SnippetDetailspage({ params }: Props) {
 
   return (
     <div>
-      <h2>{snippet.title}</h2>
+      <div className="flex m-4 justify-between items-center">
+        <h2 className="text-xl font-bold">{snippet.title}</h2>
+        <div className="flex justify-center gap-4">
+          <Link
+            href={`/snippets/${params.id}/edit`}
+            className="p-1 border rounded"
+          >
+            Edit
+          </Link>
+          <button className="p-1 border rounded">Delete</button>
+        </div>
+      </div>
       <div className="bg-gray-900 p-6 rounded-lg shadow-lg">
-        <code className="text-white font-mono">{snippet.code}</code>
+        <pre className="text-white font-mono">
+          <code>{snippet.code}</code>
+        </pre>
       </div>
     </div>
   );
