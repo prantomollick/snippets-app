@@ -2,6 +2,7 @@ import prisma from "@/db/db";
 import delay from "delay";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import * as actions from "@/actions";
 
 interface Props {
   params: {
@@ -19,7 +20,7 @@ async function SnippetDetailspage({ params }: Props) {
 
   if (!snippet) notFound();
 
-  console.log(snippet);
+  const handleDeleteSnippetAction = actions.deleteAction.bind(null, snippet.id);
 
   return (
     <div>
@@ -32,7 +33,11 @@ async function SnippetDetailspage({ params }: Props) {
           >
             Edit
           </Link>
-          <button className="p-1 border rounded">Delete</button>
+          <form action={handleDeleteSnippetAction}>
+            <button type="submit" className="p-1 border rounded">
+              Delete
+            </button>
+          </form>
         </div>
       </div>
       <div className="bg-gray-900 p-6 rounded-lg shadow-lg">
