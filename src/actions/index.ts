@@ -24,32 +24,39 @@ export async function createSnippet(
   formState: { message: string },
   formData: FormData
 ) {
-  // This needs tobe a server action!
+  try {
+    // This needs tobe a server action!
 
-  // Check the user's inputs and make sure they're valid
-  const title = formData.get("title");
-  const code = formData.get("code");
+    // Check the user's inputs and make sure they're valid
+    const title = formData.get("title");
+    const code = formData.get("code");
 
-  if (typeof title !== "string" || title.length < 3) {
-    return {
-      message: "Title must be longer"
-    };
-  }
-  if (typeof code !== "string" || code.length < 10) {
-    return {
-      message: "Code must be longer"
-    };
-  }
-
-  // Create a new record in the database
-
-  const snippet = await prisma.snippet.create({
-    data: {
-      title,
-      code
+    if (typeof title !== "string" || title.length < 3) {
+      return {
+        message: "Title must be longer"
+      };
     }
-  });
-  console.log(snippet);
+    if (typeof code !== "string" || code.length < 10) {
+      return {
+        message: "Code must be longer"
+      };
+    }
+
+    // Create a new record in the database
+
+    const snippet = await prisma.snippet.create({
+      data: {
+        title,
+        code
+      }
+    });
+  } catch (error: unknown) {
+    if (error instanceof Error) {
+      return {
+        message: `There was an error creating your snippet.`
+      };
+    }
+  }
 
   //Redirect the user back to the root route
   redirect("/");
