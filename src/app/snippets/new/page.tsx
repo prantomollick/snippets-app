@@ -1,32 +1,14 @@
-import { redirect } from "next/navigation";
-import prisma from "@/db/db";
-import React from "react";
-import { seed } from "@/db/seeder";
+"use client";
+import * as actions from "@/actions";
+import { useFormState } from "react-dom";
 
 function SnippetCreatePage() {
-  const createSnippet = async (formData: FormData) => {
-    // This needs tobe a server action!
-    "use server";
-    // Check the user's inputs and make sure they're valid
-    const title = formData.get("title") as string;
-    const code = formData.get("code") as string;
-
-    // Create a new record in the database
-
-    const snippet = await prisma.snippet.create({
-      data: {
-        title,
-        code
-      }
-    });
-    console.log(snippet);
-
-    //Redirect the user back to the root route
-    redirect("/");
-  };
+  const [formState, formAction] = useFormState(actions.createSnippet, {
+    message: ""
+  });
 
   return (
-    <form action={createSnippet}>
+    <form action={formAction}>
       <h3 className="font-bold m-3">Create a Snippet</h3>
       <div className="flex flex-col gap-4">
         <div className="flex gap-4">
@@ -45,6 +27,7 @@ function SnippetCreatePage() {
             className="border rounded p-2 w-full"
           ></textarea>
         </div>
+        <div>{formState.message}</div>
         <button type="submit" className="rounded p-2 bg-blue-200">
           Create
         </button>
