@@ -24,15 +24,22 @@ export async function createSnippet(
   formState: { message: string },
   formData: FormData
 ) {
-  return {
-    message: "Title must be longer"
-  };
-
   // This needs tobe a server action!
 
   // Check the user's inputs and make sure they're valid
-  const title = formData.get("title") as string;
-  const code = formData.get("code") as string;
+  const title = formData.get("title");
+  const code = formData.get("code");
+
+  if (typeof title !== "string" || title.length < 3) {
+    return {
+      message: "Title must be longer"
+    };
+  }
+  if (typeof code !== "string" || code.length < 10) {
+    return {
+      message: "Code must be longer"
+    };
+  }
 
   // Create a new record in the database
 
