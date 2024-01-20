@@ -1,6 +1,7 @@
 import prisma from "@/db/db";
 import Link from "next/link";
 
+// export const dynamic = "force-dynamic";
 export default async function Home() {
   const snippets = await prisma.snippet.findMany({
     orderBy: {
